@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menunggu Hari Spesialmu</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+        font-family: "Poppins", sans-serif;
+        min-height: 100vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #333;
+      }
+
+      .wrapper {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .orbit {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px dashed rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+      }
+
+      .orbit-1 {
+        width: 85vmin;
+        height: 85vmin;
+      }
+      .orbit-2 {
+        width: 65vmin;
+        height: 65vmin;
+      }
+      .orbit-3 {
+        width: 45vmin;
+        height: 45vmin;
+      }
+
+      .photo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 65px;
+        height: 65px;
+        margin: -32.5px 0 0 -32.5px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #fff;
+        box-shadow: 0 0 15px rgba(255, 105, 180, 0.6);
+        z-index: 2;
+        animation: spin-orbit var(--duration) linear infinite;
+        animation-delay: var(--delay);
+      }
+
+      .photo.reverse {
+        animation: spin-orbit-reverse var(--duration) linear infinite;
+        animation-delay: var(--delay);
+      }
+
+      @keyframes spin-orbit {
+        from {
+          transform: rotate(0deg) translateX(var(--radius)) rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg) translateX(var(--radius)) rotate(-360deg);
+        }
+      }
+
+      @keyframes spin-orbit-reverse {
+        from {
+          transform: rotate(360deg) translateX(var(--radius)) rotate(-360deg);
+        }
+        to {
+          transform: rotate(0deg) translateX(var(--radius)) rotate(0deg);
+        }
+      }
+
+      .center-content {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        padding: 40px 50px;
+        background: rgba(255, 255, 255, 0.35);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 24px;
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+      }
+
+      .top-text {
+        font-size: 18px;
+        margin-bottom: 5px;
+        color: #5a3c4d;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      .title {
+        font-family: "Dancing Script", cursive;
+        font-size: 64px;
+        color: #d81b60;
+        margin-bottom: 10px;
+      }
+
+      .subtitle {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 30px;
+        font-weight: 300;
+      }
+
+      .countdown {
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+      }
+
+      .time-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.6);
+        padding: 15px 20px;
+        border-radius: 16px;
+        min-width: 90px;
+      }
+
+      .time-value {
+        font-size: 54px;
+        font-weight: 600;
+        color: #d81b60;
+      }
+
+      .time-label {
+        font-size: 14px;
+        color: #666;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+
+      .surprise-btn {
+        background: #d81b60;
+        color: white;
+        border: none;
+        padding: 14px 28px;
+        font-size: 18px;
+        border-radius: 14px;
+        cursor: pointer;
+        font-weight: 600;
+        margin-top: 25px;
+        transition: 0.3s ease;
+        box-shadow: 0 4px 15px rgba(216, 27, 96, 0.4);
+        animation: fadeIn 1s ease;
+      }
+
+      .surprise-btn:hover {
+        transform: scale(1.05);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .floating-heart {
+        position: absolute;
+        bottom: -50px;
+        color: #ff4d6d;
+        font-size: var(--size);
+        animation: floatUp var(--duration) ease-in infinite;
+        animation-delay: var(--delay);
+        opacity: 0;
+        z-index: 1;
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(0) scale(0.8);
+          opacity: 0;
+        }
+        20% {
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateY(-120vh) scale(1.2);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper" id="heart-container">
+      <div class="orbit orbit-1"></div>
+      <div class="orbit orbit-2"></div>
+      <div class="orbit orbit-3"></div>
+
+      <img
+        src="foto1.jpeg"
+        class="photo"
+        style="--radius: 42.5vmin; --duration: 35s; --delay: 0s"
+      />
+      <img
+        src="foto2.jpeg"
+        class="photo"
+        style="--radius: 42.5vmin; --duration: 35s; --delay: -7s"
+      />
+      <img
+        src="foto3.jpeg"
+        class="photo"
+        style="--radius: 42.5vmin; --duration: 35s; --delay: -14s"
+      />
+      <img
+        src="foto4.jpeg"
+        class="photo"
+        style="--radius: 42.5vmin; --duration: 35s; --delay: -21s"
+      />
+      <img
+        src="foto5.jpeg"
+        class="photo"
+        style="--radius: 42.5vmin; --duration: 35s; --delay: -28s"
+      />
+
+      <img
+        src="foto6.jpeg"
+        class="photo reverse"
+        style="--radius: 32.5vmin; --duration: 28s; --delay: 0s"
+      />
+      <img
+        src="foto7.jpeg"
+        class="photo reverse"
+        style="--radius: 32.5vmin; --duration: 28s; --delay: -7s"
+      />
+      <img
+        src="foto8.jpeg"
+        class="photo reverse"
+        style="--radius: 32.5vmin; --duration: 28s; --delay: -14s"
+      />
+      <img
+        src="foto9.jpeg"
+        class="photo reverse"
+        style="--radius: 32.5vmin; --duration: 28s; --delay: -21s"
+      />
+
+      <div class="center-content">
+        <div class="top-text">Tunggu Sebentar Ya...</div>
+        <div class="title">Countdown</div>
+        <div class="subtitle">
+          Sabar ya cintaku, kejutan akan terbuka saat waktu habis ❤️
+        </div>
+
+        <div class="countdown">
+          <div class="time-block">
+            <div class="time-value" id="hours">00</div>
+            <div class="time-label">Jam</div>
+          </div>
+          <div class="time-block">
+            <div class="time-value" id="minutes">00</div>
+            <div class="time-label">Menit</div>
+          </div>
+          <div class="time-block">
+            <div class="time-value" id="seconds">00</div>
+            <div class="time-label">Detik</div>
+          </div>
+        </div>
+
+        <div id="openButton" style="display: none">
+          <button onclick="goToBirthdayPage()" class="surprise-btn">
+            🎁 Buka Kejutan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const container = document.getElementById("heart-container");
+      const hearts = ["❤️", "💖", "💕", "✨"];
+
+      for (let i = 0; i < 30; i++) {
+        let heart = document.createElement("div");
+        heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.className = "floating-heart";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.setProperty("--size", Math.random() * 15 + 10 + "px");
+        heart.style.setProperty("--duration", Math.random() * 10 + 8 + "s");
+        heart.style.setProperty("--delay", Math.random() * 10 + "s");
+        container.appendChild(heart);
+      }
+
+      function getTargetTime() {
+        const target = new Date();
+        target.setHours(24, 0, 0, 0);
+        return target;
+      }
+
+      let countdownFinished = false;
+
+      function updateCountdown() {
+        if (countdownFinished) return;
+
+        const now = new Date();
+        const target = getTargetTime();
+        const diff = target - now;
+
+        if (diff <= 0) {
+          document.getElementById("hours").textContent = "00";
+          document.getElementById("minutes").textContent = "00";
+          document.getElementById("seconds").textContent = "00";
+
+          document.getElementById("openButton").style.display = "block";
+          countdownFinished = true;
+          return;
+        }
+
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+
+        document.getElementById("hours").textContent = String(h).padStart(
+          2,
+          "0",
+        );
+        document.getElementById("minutes").textContent = String(m).padStart(
+          2,
+          "0",
+        );
+        document.getElementById("seconds").textContent = String(s).padStart(
+          2,
+          "0",
+        );
+      }
+
+      function goToBirthdayPage() {
+        window.location.href = "birthday.html";
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    </script>
+  </body>
+</html>
